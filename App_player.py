@@ -92,6 +92,7 @@ class Game(db.Model):
 @app.route('/')
 def Index():
     all_data = Player.query.all()
+    flash(str(len(all_data)) + " Players Are Showed Successfully")
 
     return render_template("index_player.html", players=all_data)
 

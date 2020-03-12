@@ -50,6 +50,7 @@ class Game(db.Model):
 @app.route('/')
 def Index():
     all_data = Game.query.all()
+    flash(str(len(all_data)) + " Games Are Showed Successfully")
 
     return render_template("index_game.html", games=all_data)
 
