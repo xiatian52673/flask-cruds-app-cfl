@@ -1,0 +1,427 @@
+{% extends 'base.html' %}
+{% include 'header.html' %}
+
+
+
+{% block title %} Home {% endblock %}
+
+
+
+{% block body %}
+
+<div class="container">
+    <div class="row">
+        <div class="col-sm">
+
+            <div>
+
+                <h2>Manage Players
+                    <button type="button"  class="btn btn-primary float-right"
+                data-toggle="modal" data-target="#search_modal">Search Player</button>
+
+                    <button type="button"  class="btn btn-success float-right"
+                data-toggle="modal" data-target="#add_modal">Add New Player</button> </h2>
+
+
+                {% with messages = get_flashed_messages() %}
+
+                {% if messages %}
+
+                {% for message in messages %}
+
+                <div class="alert alert-success alert-dismissable" role="alert">
+
+                    <button type="button" class="close" data-dismiss="alert" aria-label="close">
+
+                        <span aria-hidden="true">x</span>
+
+                    </button>
+
+
+                {{message}}
+
+
+                </div>
+
+
+                {% endfor %}
+
+                {% endif %}
+                {% endwith %}
+
+
+                <table class="table-responsive table-hover table-light table-sm" style="float:left">
+
+                    <tr>
+                        <th></th>
+                        <th>cfl_central_id</th>
+                        <th>stats_inc_id</th>
+                        <th>first_name</th>
+                        <th>middle_name</th>
+                        <th>last_name</th>
+                        <th>birth_date</th>
+                        <th>birth_place</th>
+                        <th>height</th>
+                        <th>weight</th>
+                        <th>rookie_year</th>
+                        <th>foreign_player</th>
+                        <th> school_id</th>
+                        <th>school_name</th>
+                        <th>position_id</th>
+                        <th>position_offence_defence_or_special</th>
+                        <th>position_abbreviation</th>
+                        <th>position_description</th>
+                    </tr>
+
+
+                   {% for row in players %}
+                    <tr>
+                        <td>
+                            <a href="/update/{{row.cfl_central_id}}" class="btn btn-warning btn-xs" data-toggle="modal" data-target="#modaledit{{row.cfl_central_id}}">Edit</a>
+                            <a href="/delete/{{row.cfl_central_id}}" class="btn btn-danger btn-xs" onclick="return confirm('Are You Sure To Delete ?')">Delete</a>
+
+                        </td>
+                        <td>{{row.cfl_central_id}}</td>
+                        <td>{{row.stats_inc_id}}</td>
+                        <td>{{row.first_name}}</td>
+                        <td>{{row.middle_name}}</td>
+                        <td>{{row.last_name}}</td>
+                        <td>{{row.birth_date}}</td>
+                        <td>{{row.birth_place}}</td>
+                        <td>{{row.height}}</td>
+                        <td>{{row.weight}}</td>
+                        <td>{{row.rookie_year}}</td>
+                        <td>{{row.foreign_player}}</td>
+                        <td>{{row.school_id}}</td>
+                        <td>{{row.school_name}}</td>
+                        <td>{{row.position_id}}</td>
+                        <td>{{row.position_offence_defence_or_special}}</td>
+                        <td>{{row.position_abbreviation}}</td>
+                        <td>{{row.position_description}}</td>
+
+
+
+                    </tr>
+
+
+                  <!-- Modal Edit Player-->
+<div id="modaledit{{row.cfl_central_id}}" class="modal fade" role="dialog">
+   <div class="modal-dialog">
+
+
+      <div class="modal-content">
+
+
+         <div class="modal-header">
+
+
+            <h4 class="modal-title">Update Information</h4>
+
+
+         </div>
+
+
+         <div class="modal-body">
+
+
+            <form action="{{url_for('update')}}" method="POST">
+
+
+               <div class="form-group">
+
+                <div class="form-group">
+                  <label>cfl_central_id:</label>
+                  <input type="text" class="form-control" name="cfl_central_id" value="{{row.cfl_central_id}}">
+                </div>
+                <div class="form-group">
+                  <label>stats_inc_id:</label>
+                  <input type="text" class="form-control" name="stats_inc_id" value="{{row.stats_inc_id}}">
+                </div>
+                <div class="form-group">
+                  <label>first_name:</label>
+                  <input type="text" class="form-control" name="first_name" value="{{row.first_name}}">
+                </div>
+                <div class="form-group">
+                  <label>middle_name:</label>
+                  <input type="text" class="form-control" name="middle_name" value="{{row.middle_name}}">
+                </div>
+                <div class="form-group">
+                  <label>last_name:</label>
+                  <input type="text" class="form-control" name="last_name" value="{{row.last_name}}">
+                </div>
+                <div class="form-group">
+                  <label>birth_date:</label>
+                  <input type="text" class="form-control" name="birth_date" value="{{row.birth_date}}">
+                </div>
+                <div class="form-group">
+                  <label>birth_place:</label>
+                  <input type="text" class="form-control" name="birth_place" value="{{row.birth_place}}">
+                </div>
+                <div class="form-group">
+                  <label>height:</label>
+                  <input type="text" class="form-control" name="height" value="{{row.height}}">
+                </div>
+                <div class="form-group">
+                  <label>weight:</label>
+                  <input type="text" class="form-control" name="weight" value="{{row.weight}}">
+                </div>
+                <div class="form-group">
+                  <label>rookie_year:</label>
+                  <input type="text" class="form-control" name="rookie_year" value="{{row.rookie_year}}">
+                </div>
+                <div class="form-group">
+                  <label>foreign_player:</label>
+                  <input type="text" class="form-control" name="foreign_player" value="{{row.foreign_player}}">
+                </div>
+                <div class="form-group">
+                  <label>school_id:</label>
+                  <input type="text" class="form-control" name="school_id" value="{{row.school_id}}">
+                </div>
+                <div class="form-group">
+                  <label>school_name:</label>
+                  <input type="text" class="form-control" name="school_name" value="{{row.school_name}}">
+                </div>
+                <div class="form-group">
+                  <label>position_id:</label>
+                  <input type="text" class="form-control" name="position_id" value="{{row.position_id}}">
+                </div>
+                <div class="form-group">
+                  <label>position_offence_defence_or_special:</label>
+                  <input type="text" class="form-control" name="position_offence_defence_or_special" value="{{row.position_offence_defence_or_special}}">
+                </div>
+                <div class="form-group">
+                  <label>position_abbreviation:</label>
+                  <input type="text" class="form-control" name="position_abbreviation" value="{{row.position_abbreviation}}">
+                </div>
+                <div class="form-group">
+                  <label>position_description:</label>
+                  <input type="text" class="form-control" name="position_description" value="{{row.position_description}}">
+                </div>
+
+
+               <div class="form-group">
+
+
+                  <button class="btn btn-primary" type="submit">Update</button>
+
+
+               </div>
+
+               </div>
+            </form>
+
+
+         </div>
+
+
+         <div class="modal-footer">
+
+
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+
+
+         </div>
+
+
+      </div>
+
+
+   </div>
+
+</div>
+
+
+                    {% endfor %}
+
+
+                </table>
+
+
+            </div>
+
+
+            <!-- Modal Add Player-->
+
+
+<div id="add_modal" class="modal fade" role="dialog">
+   <div class="modal-dialog">
+      <div class="modal-content">
+         <div class="modal-header">
+
+            <h4 class="modal-title">Add Player</h4>
+         </div>
+         <div class="modal-body">
+
+            <form action="{{url_for('insert')}}" method="POST">
+                <div class="form-group">
+                  <label>cfl_central_id:</label>
+                  <input type="text" class="form-control" name="cfl_central_id" required="1">
+                </div>
+                <div class="form-group">
+                  <label>stats_inc_id:</label>
+                  <input type="text" class="form-control" name="stats_inc_id">
+                </div>
+                <div class="form-group">
+                  <label>first_name:</label>
+                  <input type="text" class="form-control" name="first_name">
+                </div>
+                <div class="form-group">
+                  <label>middle_name:</label>
+                  <input type="text" class="form-control" name="middle_name">
+                </div>
+                <div class="form-group">
+                  <label>last_name:</label>
+                  <input type="text" class="form-control" name="last_name">
+                </div>
+                <div class="form-group">
+                  <label>birth_date:</label>
+                  <input type="text" class="form-control" name="birth_date">
+                </div>
+                <div class="form-group">
+                  <label>birth_place:</label>
+                  <input type="text" class="form-control" name="birth_place">
+                </div>
+                <div class="form-group">
+                  <label>height:</label>
+                  <input type="text" class="form-control" name="height">
+                </div>
+                <div class="form-group">
+                  <label>weight:</label>
+                  <input type="text" class="form-control" name="weight">
+                </div>
+                <div class="form-group">
+                  <label>rookie_year:</label>
+                  <input type="text" class="form-control" name="rookie_year">
+                </div>
+                <div class="form-group">
+                  <label>foreign_player:</label>
+                  <input type="text" class="form-control" name="foreign_player">
+                </div>
+                <div class="form-group">
+                  <label>school_id:</label>
+                  <input type="text" class="form-control" name="school_id">
+                </div>
+                <div class="form-group">
+                  <label>school_name:</label>
+                  <input type="text" class="form-control" name="school_name">
+                </div>
+                <div class="form-group">
+                  <label>position_id:</label>
+                  <input type="text" class="form-control" name="position_id">
+                </div>
+                <div class="form-group">
+                  <label>position_offence_defence_or_special:</label>
+                  <input type="text" class="form-control" name="position_offence_defence_or_special">
+                </div>
+                <div class="form-group">
+                  <label>position_abbreviation:</label>
+                  <input type="text" class="form-control" name="position_abbreviation">
+                </div>
+                <div class="form-group">
+                  <label>position_description:</label>
+                  <input type="text" class="form-control" name="position_description">
+                </div>
+
+
+
+               <div class="form-group">
+
+
+                  <button class="btn btn-primary" type="submit">Add Player</button>
+
+
+               </div>
+
+
+            </form>
+
+
+         </div>
+
+
+         <div class="modal-footer">
+
+
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+
+
+         </div>
+
+
+      </div>
+
+
+   </div>
+
+
+</div>
+
+
+
+            <!-- Modal Search Player-->
+
+<div id="search_modal" class="modal fade" role="dialog">
+   <div class="modal-dialog">
+      <div class="modal-content">
+         <div class="modal-header">
+
+             <h4 class="modal-title">Search Player</h4>
+         </div>
+
+         <div class="modal-body">
+
+            <form action="{{url_for('search')}}" method="GET">
+                <div class="form-group">
+                  <label>position_id:</label>
+                  <input type="text" class="form-control" name="position_id">
+                </div>
+                <div class="form-group">
+                  <label>last_name:</label>
+                  <input type="text" class="form-control" name="last_name">
+                </div>
+
+               <div class="form-group">
+
+
+                  <button class="btn btn-primary" type="submit">Search Player</button>
+
+
+               </div>
+
+
+            </form>
+
+
+         </div>
+
+
+         <div class="modal-footer">
+
+
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+
+
+         </div>
+
+
+      </div>
+
+
+   </div>
+
+
+</div>
+
+
+
+
+
+        </div>
+
+    </div>
+
+
+</div>
+
+
+{% endblock %}
