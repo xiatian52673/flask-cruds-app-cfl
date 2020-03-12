@@ -88,12 +88,12 @@ class Game(db.Model):
 
 
 # This is the index route where we are going to
-# query on all our employee data
+# query on all our player data
 @app.route('/')
 def Index():
     all_data = Player.query.all()
 
-    return render_template("index.html", players=all_data)
+    return render_template("index_player.html", players=all_data)
 
 
 # this route is for inserting data to mysql database via html forms
@@ -126,12 +126,12 @@ def insert():
         db.session.add(my_data)
         db.session.commit()
 
-        flash("Employee Inserted Successfully")
+        flash("Player Inserted Successfully")
 
         return redirect(url_for('Index'))
 
 
-# this is our update route where we are going to update our employee
+# this is our update route where we are going to update our player
 @app.route('/update', methods=['GET', 'POST'])
 def update():
     if request.method == 'POST':
@@ -186,7 +186,7 @@ def search():
 
         flash(str(len(player)) + " Matched Players Found Successfully")
 
-        return render_template('index.html', players = player)
+        return render_template('index_player.html', players=player)
 
 
 if __name__ == "__main__":
