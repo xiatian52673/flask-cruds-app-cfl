@@ -14,31 +14,31 @@ app.config["SQLALCHEMY_DATABASE_URI"] = database_file
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 db = SQLAlchemy(app)
 
-# url1 = 'http://api.cfl.ca/v1/players'
-# PARAMS1 = {'page[number]': 1, 'page[size]': 100, 'key': 'T8Mv9BRDdcB7bMQUsQvHqtCGPewH5y8p'}
-# num_inserted_ids = 0
-# inserted_ids = set()
-# while num_inserted_ids < 100:
-#     res1 = requests.get(url1, params=PARAMS1)
-#     json_obj1 = res1.json()
-#     for player in json_obj1['data']:
-#         if player['cfl_central_id'] in inserted_ids:
-#             continue
-#         new_player = Player(player['cfl_central_id'], player['stats_inc_id'], player['first_name'],
-#                             player['middle_name'], player['last_name'], player['birth_date'], player['birth_place'],
-#                             player['height'], player['weight'], player['rookie_year'], player['foreign_player'],
-#                             player['school']['school_id'], player['school']['name'],
-#                             player['position']['position_id'], player['position']['offence_defence_or_special'],
-#                             player['position']['abbreviation'], player['position']['description'])
-#         db.session.add(new_player)
-#         inserted_ids.add(player['cfl_central_id'])
-#         num_inserted_ids += 1
-#         if num_inserted_ids >= 100:
-#             break
-#
-#     PARAMS1['page[number]'] += 1
-# db.session.commit()
-# print(num_inserted_ids, " players are inserted")
+url1 = 'http://api.cfl.ca/v1/players'
+PARAMS1 = {'page[number]': 1, 'page[size]': 100, 'key': 'T8Mv9BRDdcB7bMQUsQvHqtCGPewH5y8p'}
+num_inserted_ids = 0
+inserted_ids = set()
+while num_inserted_ids < 100:
+    res1 = requests.get(url1, params=PARAMS1)
+    json_obj1 = res1.json()
+    for player in json_obj1['data']:
+        if player['cfl_central_id'] in inserted_ids:
+            continue
+        new_player = Player(player['cfl_central_id'], player['stats_inc_id'], player['first_name'],
+                            player['middle_name'], player['last_name'], player['birth_date'], player['birth_place'],
+                            player['height'], player['weight'], player['rookie_year'], player['foreign_player'],
+                            player['school']['school_id'], player['school']['name'],
+                            player['position']['position_id'], player['position']['offence_defence_or_special'],
+                            player['position']['abbreviation'], player['position']['description'])
+        db.session.add(new_player)
+        inserted_ids.add(player['cfl_central_id'])
+        num_inserted_ids += 1
+        if num_inserted_ids >= 100:
+            break
+
+    PARAMS1['page[number]'] += 1
+db.session.commit()
+print(num_inserted_ids, " players are inserted")
 
 
 
