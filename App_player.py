@@ -56,37 +56,6 @@ class Player(db.Model):
         self.position_description = position_description
 
 
-class Game(db.Model):
-    game_id = db.Column(db.Integer, primary_key=True)
-    date_start = db.Column(db.DateTime)
-    game_number = db.Column(db.Integer)
-    week = db.Column(db.Integer)
-    season = db.Column(db.Integer)
-    attendance = db.Column(db.Integer)
-    game_duration = db.Column(db.Integer)
-    event_type_id = db.Column(db.Integer)
-    event_status_id = db.Column(db.Integer)
-    venue_id = db.Column(db.Integer)
-    team_1_id = db.Column(db.Integer)
-    team_2_id = db.Column(db.Integer)
-
-    def __init__(self, game_id, date_start=None, game_number=None, week=None, season=None,
-                 attendance=None, game_duration=None, event_type_id=None, event_status_id=None,
-                 venue_id=None, team_1_id=None, team_2_id=None):
-        self.game_id = game_id
-        self.date_start = date_start
-        self.game_number = game_number
-        self.week = week
-        self.season = season
-        self.attendance = attendance
-        self.game_duration = game_duration
-        self.event_type_id = event_type_id
-        self.event_status_id = event_status_id
-        self.venue_id = venue_id,
-        self.team_1_id = team_1_id,
-        self.team_2_id = team_2_id,
-
-
 # This is the index route where we are going to
 # query on all our player data
 @app.route('/')
